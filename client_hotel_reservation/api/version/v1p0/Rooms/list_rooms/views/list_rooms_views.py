@@ -6,7 +6,10 @@ from client_hotel_reservation.models.rooms_model import Room
 
 class ListRoomsAPI(APIView):
     def get(self, request, *args, **kwargs):
+        ### Add Field Validator Here ####
 
+        #################################
+        
         hotel_uid = request.query_params.get('uid')
         rooms = Room.objects.filter(hotel=hotel_uid)
         serializer = ListRoomSerializer(rooms, many=True)

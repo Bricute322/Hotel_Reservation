@@ -1,8 +1,10 @@
 import uuid
 from .hotels_model import Hotel
+from .availability_model import Availability
 from django.db import models
 
 class Room(models.Model):
+    
     uid = models.UUIDField(
          primary_key = True,
          default = uuid.uuid4,
@@ -23,8 +25,8 @@ class Room(models.Model):
     )
     room_type = models.CharField(max_length=4, null= True, choices=ROOM_TYPE)
     room_image = models.ImageField(null=True)
+    is_available = models.BooleanField(default=True)
     max_guest = models.IntegerField(null=True)
-    availability= models.BooleanField(default=False)
     description = models.TextField(null=True)
 
     class Meta:
