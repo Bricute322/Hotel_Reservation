@@ -6,7 +6,7 @@ from client_hotel_reservation.models.bookings_model import Booking
 
 class ListBookingAPI(APIView):
     def get(self,request):
-        bookings = Booking.objects.all()
+        bookings = Booking.objects.filter(is_archive = False)
         serializer = ListBookingSerializer(bookings,many=True)
         
         return Response({'message': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)

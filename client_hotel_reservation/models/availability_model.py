@@ -9,6 +9,7 @@ class Availability(models.Model):
     booking = models.ForeignKey('client_hotel_reservation.Booking' , on_delete= models.CASCADE, null=True)
     check_in = models.DateField(null=True)
     check_out = models.DateField(null=True)
+    is_archive = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'Availability'

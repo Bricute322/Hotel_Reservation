@@ -1,17 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from ..serializers.hotel_details_serializer import ListHotelSerializer
-from client_hotel_reservation.models.hotels_model import Hotel
+from ..serializers.room_details_serializer import ListRoomSerializer
+from client_hotel_reservation.models.rooms_model import Room
 
-class HotelDetailsAPI(APIView):
+class RoomDetailsAPI(APIView):
     def get(self, request, *args, **kwargs):
         ### Add Field Validator Here ####
 
         #################################
         
-        hotel_uid = request.query_params['uid']
-        hotel = Hotel.objects.get(uid=hotel_uid)
-        serializer = ListHotelSerializer(hotel)
+        room_uid = request.query_params['uid']
+        room = Room.objects.get(uid=room_uid)
+        serializer = ListRoomSerializer(room)
         
         return Response({'message': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)

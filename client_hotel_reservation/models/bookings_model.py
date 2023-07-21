@@ -14,6 +14,7 @@ class Booking(models.Model):
     phone_num = models.CharField(max_length=15, null=True)
     no_of_guest = models.IntegerField(null=True)
     description = models.TextField(null=True)
+    is_archive = models.BooleanField(default=False)
     
     class Meta:
         verbose_name_plural = 'Bookings'

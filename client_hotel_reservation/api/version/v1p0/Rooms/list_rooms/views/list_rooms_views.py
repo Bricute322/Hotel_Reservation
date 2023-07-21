@@ -10,8 +10,8 @@ class ListRoomsAPI(APIView):
 
         #################################
         
-        hotel_uid = request.query_params.get('uid')
-        rooms = Room.objects.filter(hotel=hotel_uid)
+        hotel_uid = request.query_params['uid']
+        rooms = Room.objects.filter(hotel=hotel_uid,is_available=True)
         serializer = ListRoomSerializer(rooms, many=True)
         
         return Response({'message': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)

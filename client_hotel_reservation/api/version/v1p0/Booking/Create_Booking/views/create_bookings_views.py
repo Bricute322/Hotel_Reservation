@@ -33,6 +33,7 @@ class CreateBookingAPI(APIView):
                 booking__rooms=room,
                 check_out__gte=check_in,
                 check_in__lte=check_out,
+                is_archive = False,
             )
 
             if overlapping_availability.exists():
