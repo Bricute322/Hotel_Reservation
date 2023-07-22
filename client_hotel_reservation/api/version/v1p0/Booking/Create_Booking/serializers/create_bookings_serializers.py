@@ -8,9 +8,9 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ['rooms', 'booking_name', 'phone_num','no_of_guest', 'check_in', 'check_out','description']
         extra_kwargs = {
-            'booking_name': {'required': False},
-            'phone_num': {'required': False},
-            'no_of_guest': {'required': False},
+            'booking_name': {'required': True},
+            'phone_num': {'required': True},
+            'no_of_guest': {'required': True},
         }
 
     # def validate_rooms(self, value):
