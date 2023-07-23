@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,7 +45,38 @@ INSTALLED_APPS = [
     'rest_framework',
     'client_hotel_reservation',
     'corsheaders',
+    'rest_framework_simplejwt',
     
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_DELTA': timedelta(minutes=10),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LEEWAY': timedelta(minutes=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+AUTHENTICATION_BACKENDS = [
+    # 'client_hotel_reservation.custom_auth_backend.ApiSecretAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'client_hotel_reservation.validators.custom_authenticate.EmailBackend'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +163,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 CORS_ALLOW_ALL_ORIGINS = True
+
+# AUTH_USER_MODEL = 'client_hotel_reservation.CustomUser'

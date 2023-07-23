@@ -11,7 +11,11 @@ class HotelDetailsAPI(APIView):
         #################################
         
         hotel_uid = request.query_params['uid']
-        hotel = Hotel.objects.get(uid=hotel_uid)
+        try:
+            hotel = Hotel.objects.get(uid=hotel_uid)
+        except Hotel.DoesNotExist:
+            return Response({'message': 'Hotel not found'}, status=status.HTTP_404_NOT_FOUND)
+        
         serializer = ListHotelSerializer(hotel)
         
         return Response({'message': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)

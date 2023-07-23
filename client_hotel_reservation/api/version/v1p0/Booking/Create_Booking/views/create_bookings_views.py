@@ -5,13 +5,19 @@ from ..serializers.create_bookings_serializers import CreateBookingSerializer
 from client_hotel_reservation.models.bookings_model import Booking
 from client_hotel_reservation.models.availability_model import Availability
 from client_hotel_reservation.models.rooms_model import Room
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from client_hotel_reservation.validators.user_helper import UserHelper
+from client_hotel_reservation.validators.booking_checker import BookingChecker
 
 class CreateBookingAPI(APIView):
+    authentication_classes = [JWTAuthentication]
     def post(self,request, *args, **kwargs):
         ### Add Field Validator Here ####
+        errors = UserHelper.validate_user(self,request)
 
+        if errors:
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         #################################
-
         serializer = CreateBookingSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -22,6 +28,7 @@ class CreateBookingAPI(APIView):
             check_out = request.data['check_out']
             
             booking = Booking.objects.create(
+                user = request.user,
                 rooms = room,
                 booking_name = request.data['booking_name'],
                 phone_num = request.data['phone_num'],
@@ -29,19 +36,15 @@ class CreateBookingAPI(APIView):
                 description = request.data['description'],
             )
 
-            overlapping_availability = Availability.objects.filter(
-                booking__rooms=room,
-                check_out__gte=check_in,
-                check_in__lte=check_out,
-                is_archive = False,
-            )
+            errors = BookingChecker.validate_existing_booking_date(self,room,check_in,check_out)
 
-            if overlapping_availability.exists():
+            if 'error' in errors:
                 booking.delete()
                 return Response({'message': 'Room is not available for the specified period.'}, status=status.HTTP_400_BAD_REQUEST)
            
             Availability.objects.create(booking=booking, check_in=check_in, check_out=check_out)
             serialized_booking = serializer.data
+            serialized_booking['user'] = request.user.email
             serialized_booking['rooms'] = {
                 'uid': room.uid,
                 'room_number': room.room_no,

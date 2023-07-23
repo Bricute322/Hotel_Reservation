@@ -6,7 +6,7 @@ class CreateBookingSerializer(serializers.ModelSerializer):
     check_out = serializers.DateField(required = True)
     class Meta:
         model = Booking
-        fields = ['rooms', 'booking_name', 'phone_num','no_of_guest', 'check_in', 'check_out','description']
+        fields = ['user','rooms', 'booking_name', 'phone_num','no_of_guest', 'check_in', 'check_out','description']
         extra_kwargs = {
             'booking_name': {'required': True},
             'phone_num': {'required': True},

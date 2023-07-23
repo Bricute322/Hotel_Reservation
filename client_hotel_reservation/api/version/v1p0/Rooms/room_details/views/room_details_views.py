@@ -6,12 +6,13 @@ from client_hotel_reservation.models.rooms_model import Room
 
 class RoomDetailsAPI(APIView):
     def get(self, request, *args, **kwargs):
-        ### Add Field Validator Here ####
-
-        #################################
         
         room_uid = request.query_params['uid']
-        room = Room.objects.get(uid=room_uid)
+        try:
+            room = Room.objects.get(uid=room_uid)
+        except Room.DoesNotExist:
+            return Response({'message': 'Room not found'}, status=status.HTTP_404_NOT_FOUND)
+        
         serializer = ListRoomSerializer(room)
         
         return Response({'message': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)

@@ -6,10 +6,17 @@ from .api.version.v1p0.Booking.list_booking.views.list_booking_views import List
 from .api.version.v1p0.Booking.Cancel_Booking.views.cancel_booking_views import UpdateBookingAPI
 from .api.version.v1p0.Rooms.list_rooms.views.list_rooms_views import ListRoomsAPI
 from .api.version.v1p0.Rooms.room_details.views.room_details_views import RoomDetailsAPI
+from .api.version.v1p0.Authentication.login.views.login_views import UserLoginView
+from .api.version.v1p0.Authentication.register.views.register_views import UserRegistrationAPIView
+from .api.version.v1p0.Authentication.logout.views.logout_view import UserLogoutView
 
 
 urlpatterns = [
-    
+    ############ Authenticate ################
+    path('login/', UserLoginView.as_view(), name = 'client_login'),
+    path('register/', UserRegistrationAPIView.as_view(), name = 'client_register'),
+    path('logout/', UserLogoutView.as_view(), name = 'client_logout'),
+
     ############ Hotels #############
 
     path('hotels/list/', ListHotelAPI.as_view(), name = 'client_list_hotel'),
