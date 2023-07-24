@@ -11,7 +11,6 @@ class ListBookingAPI(APIView):
     def get(self,request):
         
         errors = UserHelper.validate_user(self,request)
-
         if errors:
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         

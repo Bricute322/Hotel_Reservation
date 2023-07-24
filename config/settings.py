@@ -29,13 +29,13 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000/",
-    "http://127.0.0.1:9000/",
-]
+
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
+    'client_hotel_reservation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'client_hotel_reservation',
     'corsheaders',
     'rest_framework_simplejwt',
     
@@ -80,6 +79,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -162,6 +163,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-CORS_ALLOW_ALL_ORIGINS = True
 
-# AUTH_USER_MODEL = 'client_hotel_reservation.CustomUser'
+
+AUTH_USER_MODEL = 'client_hotel_reservation.CustomUser'

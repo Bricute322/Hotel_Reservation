@@ -24,8 +24,8 @@ class CreateBookingAPI(APIView):
             room_id = request.query_params['rooms']
             room = Room.objects.get(uid=room_id)
 
-            check_in = request.data['check_in']
-            check_out = request.data['check_out']
+            check_in = serializer.data['check_in']
+            check_out = serializer.data['check_out']
             
             booking = Booking.objects.create(
                 user = request.user,
@@ -38,7 +38,7 @@ class CreateBookingAPI(APIView):
 
             errors = BookingChecker.validate_existing_booking_date(self,room,check_in,check_out)
 
-            if 'error' in errors:
+            if errors:
                 booking.delete()
                 return Response({'message': 'Room is not available for the specified period.'}, status=status.HTTP_400_BAD_REQUEST)
            

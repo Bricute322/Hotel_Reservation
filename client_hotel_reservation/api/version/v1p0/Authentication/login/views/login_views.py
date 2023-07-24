@@ -23,6 +23,6 @@ class UserLoginView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
         
-            return Response({'messsage': 'Success','access_token': access_token}, status=status.HTTP_200_OK)
+            return Response({'messsage': 'Success','access_token': access_token,'Api Secret': user.api_secret_key}, status=status.HTTP_200_OK)
         
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
