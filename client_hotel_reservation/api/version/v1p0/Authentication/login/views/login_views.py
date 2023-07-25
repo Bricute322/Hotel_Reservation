@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
+from django.http import JsonResponse, HttpResponse
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-# from django.contrib.auth import authenticate
 from ..serializers.login_serializer import UserLoginSerializer
 from client_hotel_reservation.validators.custom_authenticate import EmailBackend
 
@@ -23,6 +23,16 @@ class UserLoginView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
         
-            return Response({'messsage': 'Success','access_token': access_token,'Api Secret': user.api_secret_key}, status=status.HTTP_200_OK)
+            response_data = {
+                'message': 'Success',
+                'api_secret': user.api_secret_key,
+                'access_token': access_token,
+            }
+            response = JsonResponse(response_data, status=status.HTTP_200_OK)
+            response['HTTP_API_SECRET_KEY'] = user.api_secret_key
+            
+            response['Authorization'] = 'Bearer {}'.format(access_token)
+
+            return response
         
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

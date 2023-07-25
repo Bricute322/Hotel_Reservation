@@ -9,6 +9,7 @@ from .api.version.v1p0.Rooms.room_details.views.room_details_views import RoomDe
 from .api.version.v1p0.Authentication.login.views.login_views import UserLoginView
 from .api.version.v1p0.Authentication.register.views.register_views import UserRegistrationAPIView
 from .api.version.v1p0.Authentication.logout.views.logout_view import UserLogoutView
+from .api.version.v1p0.Search.views.search_view import SearchAPIView
 
 
 urlpatterns = [
@@ -33,4 +34,7 @@ urlpatterns = [
     path('rooms/list/', ListRoomsAPI.as_view(), name = 'client_list_rooms'),
     path('rooms/details/', RoomDetailsAPI.as_view(), name = 'client_details_rooms'),
 
+
+    ############ Search ###############
+    path('search/', SearchAPIView.as_view(), name = 'client_search'),
 ]
