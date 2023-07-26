@@ -15,8 +15,11 @@ class CreateBookingAPI(APIView):
         ### Add Field Validator Here ####
         errors = UserHelper.validate_user(self,request)
 
+        errors = BookingChecker.validate_room_uid(self,request)
+
         if errors:
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
         #################################
         serializer = CreateBookingSerializer(data=request.data)
         

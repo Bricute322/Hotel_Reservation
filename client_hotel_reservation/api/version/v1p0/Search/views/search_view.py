@@ -8,7 +8,7 @@ from django.db.models import Q
 
 class SearchAPIView(APIView):
     
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
 
         if 'location' in request.data and request.data['location'] != '':
             if 'check_in' in request.data and request.data['check_in'] != '':

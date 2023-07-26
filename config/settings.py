@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,6 +34,9 @@ ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+custom_cors_headers = list(default_headers)
+custom_cors_headers.append('HTTP_API_SECRET_KEY')
+CORS_ALLOW_HEADERS = tuple(custom_cors_headers)
 
 INSTALLED_APPS = [
     'client_hotel_reservation',

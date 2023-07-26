@@ -1,4 +1,5 @@
 from client_hotel_reservation.models.bookings_model import Booking
+from client_hotel_reservation.models.rooms_model import Room
 from client_hotel_reservation.models.availability_model import Availability
 
 class BookingChecker:
@@ -16,8 +17,18 @@ class BookingChecker:
         
         return
         
-    def validate_room_uid():
-        pass
+    def validate_room_uid(self,request):
+        errors ={}
+
+        room_id = request.query_params['rooms']
+        
+        try:
+            room = Room.objects.get(uid=room_id)
+        except Room.DoesNotExist:
+            errors['room'] = 'Room Does Not Exist'
+
+        return errors
+    
     def validate_field(self,request):
         errors ={}
 
