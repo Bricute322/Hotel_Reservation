@@ -8,7 +8,6 @@ from .api.version.v1p0.Rooms.list_rooms.views.list_rooms_views import ListRoomsA
 from .api.version.v1p0.Rooms.room_details.views.room_details_views import RoomDetailsAPI
 from .api.version.v1p0.Authentication.login.views.login_views import UserLoginView
 from .api.version.v1p0.Authentication.register.views.register_views import UserRegistrationAPIView
-from .api.version.v1p0.Authentication.logout.views.logout_view import UserLogoutView
 from .api.version.v1p0.Search.views.search_view import SearchAPIView
 
 
@@ -16,7 +15,6 @@ urlpatterns = [
     ############ Authenticate ################
     path('login/', UserLoginView.as_view(), name = 'client_login'),
     path('register/', UserRegistrationAPIView.as_view(), name = 'client_register'),
-    path('logout/', UserLogoutView.as_view(), name = 'client_logout'),
 
     ############ Hotels #############
 
