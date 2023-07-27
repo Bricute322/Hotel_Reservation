@@ -13,15 +13,15 @@ class Room(models.Model):
     room_no = models.IntegerField(null=True)
     ROOM_TYPE = (
         ('S', 'Suite'),
-        ('SA', 'Studio_Apartment'),
-        ('PS', 'Presidential_Suite'),
-        ('ES', 'Executive_Suite'),
-        ('DHR', 'Deluxe_Hotel_Rooms'),
-        ('SHR', 'Studio_Hotel_Rooms'),
-        ('ROHR', 'Room_Only_Hotel_Rooms'),
-        ('SSR', 'Standard_Suite_Rooms'),
-        ('PSHR', 'Presidential_Suite_Hotel_Rooms'),
-        ('ASHB', 'Apartment_Style_Hotel_Bedroom'),
+        ('SA', 'Studio Apartment'),
+        ('PS', 'Presidential Suite'),
+        ('ES', 'Executive Suite'),
+        ('DHR', 'Deluxe_Hotel Rooms'),
+        ('SHR', 'Studio_Hotel Rooms'),
+        ('ROHR', 'Room_Only Hotel_Rooms'),
+        ('SSR', 'Standard_Suite Rooms'),
+        ('PSHR', 'Presidential Suite Hotel Rooms'),
+        ('ASHB', 'Apartment Style Hotel Bedroom'),
     )
     room_type = models.CharField(max_length=4, null= True, choices=ROOM_TYPE)
     room_image = models.ImageField(null=True)
