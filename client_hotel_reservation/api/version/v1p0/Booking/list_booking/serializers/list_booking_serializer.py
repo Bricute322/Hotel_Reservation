@@ -10,7 +10,7 @@ class AvailabilitySerializer(serializers.ModelSerializer):
 class ListBookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['rooms', 'booking_name', 'phone_num','no_of_guest','description']
+        fields = ['uid','rooms', 'booking_name', 'phone_num','no_of_guest','description']
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)

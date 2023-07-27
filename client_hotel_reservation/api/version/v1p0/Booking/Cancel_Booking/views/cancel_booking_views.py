@@ -31,4 +31,4 @@ class UpdateBookingAPI(APIView):
         availability = Availability.objects.filter(booking=booking)
         availability.update(is_archive=True)
         
-        return Response({'message': 'Booking Successfuly Cancelled'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Booking Successfuly Cancelled'}, status=status.HTTP_200_OK)

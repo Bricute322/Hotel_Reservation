@@ -35,7 +35,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 custom_cors_headers = list(default_headers)
-custom_cors_headers.append('HTTP_API_SECRET_KEY')
+custom_cors_headers.append('api-secret-key')
 CORS_ALLOW_HEADERS = tuple(custom_cors_headers)
 
 INSTALLED_APPS = [
